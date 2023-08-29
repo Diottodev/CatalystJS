@@ -9,10 +9,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.m?js$/,
+        exclude: /(node_modules)/,
         use: {
-          loader: "babel-loader",
+          // `.swcrc` can be used to configure swc
+          loader: "swc-loader",
         },
       },
     ],

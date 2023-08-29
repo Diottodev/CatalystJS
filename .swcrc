@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "transform": {
+      "react": {
+        "pragma": "Catalyst.createElement",
+        "throwIfNamespace": true,
+        "development": false,
+        "useBuiltins": false
+      },
+      "optimizer": {
+        "globals": {
+          "vars": {
+            "__DEBUG__": "true"
+          }
+        }
+      }
+    },
+    "parser": {
+      "syntax": "ecmascript",
+      "jsx": true,
+      "dynamicImport": false,
+      "privateMethod": false,
+      "functionBind": false,
+      "exportDefaultFrom": false,
+      "exportNamespaceFrom": false,
+      "decorators": false,
+      "decoratorsBeforeExport": false,
+      "topLevelAwait": false,
+      "importMeta": false
+    },
+    "target": "es2016",
+    "loose": false,
+    "externalHelpers": false,
+    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+    "keepClassNames": false
+  },
+  "minify": false
+}

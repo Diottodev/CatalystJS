@@ -1,9 +1,17 @@
+"use strict";
+
+import { rerender } from "./src/index";
+
+var rendering = false;
+var internalState;
+
 function convertToHtml(vNode) {
   if (typeof vNode === "string" || typeof vNode === "number") {
     return document.createTextNode(`${vNode}`);
   }
 
   const $domElement = document.createElement(vNode.tagName);
+
   if (vNode.props.ui) {
     const styles = vNode.props.ui;
     Object.keys(styles).forEach((property) => {
@@ -33,7 +41,19 @@ function convertToHtml(vNode) {
   return $domElement;
 }
 
-const createElement = (elementType, props, ...children) => {
+function internalSetState(newState) {
+  internalState = newState;
+  rerender();
+}
+
+export function useState(initialState) {
+  if (!rendering) {
+    rendering = true;
+    internalState = initialState;
+  }
+  return [internalState, internalSetState];
+}
+function createElement(elementType, props, ...children) {
   const vElementProps = {
     ...props,
     children,
@@ -46,14 +66,9 @@ const createElement = (elementType, props, ...children) => {
     tagName: elementType,
     props: vElementProps,
   };
-};
-
-const render = (initialVTree, $domRoot) => {
+}
+function render(initialVTree, $domRoot) {
   const $appHTML = convertToHtml(initialVTree);
   $domRoot.appendChild($appHTML);
-};
-
-export const Catalyst = {
-  createElement,
-  render,
-};
+}
+export const Catalyst = { createElement, render };
